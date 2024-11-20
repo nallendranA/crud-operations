@@ -1,0 +1,70 @@
+h2{
+    text-align: center;
+    margin-top: 10px;
+}
+.cont{
+    margin-left: 39% ;
+    margin-top: 10px;
+    width: 350px;
+    background-color:rgb(214, 211, 211);
+    padding: 20px 40px;
+    border-radius: 10px;
+    box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.075),
+    0 2px 2px hsl(0deg 0% 0% / 0.075),
+    0 4px 4px hsl(0deg 0% 0% / 0.075),
+    0 8px 8px hsl(0deg 0% 0% / 0.075),
+    0 16px 16px hsl(0deg 0% 0% / 0.075);
+}
+table{
+    margin-top: 10px;
+    
+}
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1; /* Ensures main content takes the available space */
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #343a40; /* Dark background color */
+    color: white;
+    text-align: center;
+    padding: 5px 0;
+}
+#button{
+    width:fit-content;
+    margin-left: 45%;
+    margin-top: 10px;
+}
+#button1{
+    width:fit-content;
+    margin-left: 45%;
+    margin-top: 10px;
+
+}
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.content {
+    flex: 1;
+    padding-bottom: 60px; /* Ensure there’s space above the footer */
+}
+.red{
+    color: red;
+}
+
+
+
+
+

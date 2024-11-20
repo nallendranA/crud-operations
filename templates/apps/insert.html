@@ -1,0 +1,14 @@
+{% extends 'apps/result.html' %}
+
+
+{% block content %}
+
+<h2>Inserting Record</h2>
+<div class="cont">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="btn btn-primary" value="Insert Record">
+    </form>
+</div>
+{% endblock %}

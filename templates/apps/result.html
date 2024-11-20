@@ -1,0 +1,145 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crud-operations</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{%static 'css/style.css'%}">
+
+</head>
+<style>
+  .update-link{
+    text-decoration: none;
+    color: white;
+    background-color: blue;
+    padding: 5px;
+    border-radius: 2px;
+
+  }
+  .delete-link{
+    text-decoration: none;
+    color: white;
+    background-color: red ;
+    padding: 5px;
+    border-radius: 2px;
+    
+  }
+  #insert{
+    color: greenyellow;
+  }
+
+  #showall{
+    color:cornflowerblue;
+  }
+  p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+</style>
+<body>
+  <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
+    <div class="container-md">
+      <a class="navbar-brand">CRUD</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'read' %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="insert" href="{% url 'insert' %}">Insert Record</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="showall" href="{% url 'read' %}">Show All</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'download' %}">Download File</a>
+          </li>
+        
+        </ul>
+        <form class="d-flex" role="search" method="GET" action="{% url 'read' %}">
+          <input class="form-control me-2" name="q" type="search" placeholder="Search for Students..." aria-label="Search" value="{{q}}">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+      {%block content%}
+      <main>
+        <h2>Student Information Record</h2>
+    {% if s %}
+        <table class="table table-hover table-bordered">
+            <thead>
+              <tr class="table-secondary">
+                <th scope="col">NO</th>
+                <th scope="col">NAME</th>
+                <th scope="col">MOBILE</th>
+                <th scope="col">CITY</th>
+                <th scope="col">COURSE</th>
+                <th scope="col">ACTIONS</th>
+                <th scope="col">CREATED</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for i in s %}
+              <tr>
+                <th scope="row">{{ i.no }}</th>
+                <td>{{ i.name }}</td>
+                <td>{{ i.mobile }}</td>
+                <td>{{ i.city }}</td>
+                <td>{{ i.course }}</td>
+                <td><a class='update-link' href="/update/{{ i.id }}">Update</a> | <a class='delete-link' href="/delete/{{ i.id }}">Delete</a></td>
+                <td>{{ i.created|date:" M d, Y H:i" }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <!-- <a href="{% url 'download' %}" class="btn btn-success mt-3" id="button">Download File</a> -->
+        <nav>
+          <ul class="pagination justify-content-center">
+            {% if s.has_previous %}
+              <li class="page-item">
+                <a class="page-link" href="?q={{ q }}&page=1">First</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="?q={{ q }}&page={{ s.previous_page_number }}">Previous</a>
+              </li>
+            {% endif %}
+
+            {% for page_num in s.paginator.page_range %}
+              {% if page_num == s.number %}
+                <li class="page-item active"><span class="page-link">{{ page_num }}</span></li>
+              {% elif page_num >= s.number|add:'-2' and page_num <= s.number|add:'2' %}
+                <li class="page-item"><a class="page-link" href="?q={{ q }}&page={{ page_num }}">{{ page_num }}</a></li>
+              {% endif %}
+            {% endfor %}
+
+            {% if s.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="?q={{ q }}&page={{ s.next_page_number }}">Next</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="?q={{ q }}&page={{ s.paginator.num_pages }}">Last</a>
+              </li>
+            {% endif %}
+          </ul>
+        </nav>
+    {% else %}
+    <p>No Records Found..</p>
+    
+    {% endif %}
+    
+      </main>
+      {%endblock%}
+      <footer>
+        <p>&copy; 2024 Nallendran. All rights reserved.</p>
+      </footer>
+    
+</body>
+</html>

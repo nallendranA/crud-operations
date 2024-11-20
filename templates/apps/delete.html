@@ -1,0 +1,71 @@
+{% extends 'apps/result.html' %}
+
+{% block content %}
+
+<style>
+    .delete-container {
+    width: 400px;
+    margin-left: 550px;
+    margin-top: 100px;
+    padding: 20px;
+    background-color: rgb(214, 211, 211);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.delete-message {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+}
+
+.delete-btn {
+    background-color: #dc3545; /* Red for delete */
+}
+
+.cancel-btn {
+    background-color: #6c757d; /* Grey for cancel */
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+span{
+    color: red;
+}
+</style>
+<div class="delete-container">
+    <h3 class="delete-message">Are you sure you want to delete <span>"{{ student.name }}"</span>?</h3>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <div class="button-group">
+            <input type="submit" value="Confirm Delete" class="btn delete-btn">
+            <a href="{% url 'read' %}" class="btn cancel-btn">Cancel</a>
+        </div>
+    </form>
+</div>
+
+
+
+{% endblock %}
+
+
+
+
